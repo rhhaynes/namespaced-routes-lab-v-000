@@ -2,7 +2,9 @@ class ArtistsController < ApplicationController
   before_action :set_pref, only: [:index, :new]
   
   def index
-    @pref.nil? ? @artists = Artist.all : @artists = Artist.order("name #{@pref.artist_sort_order}")
+    if @pref then @artists = Artist.order("name #{@pref.artist_sort_order}")
+    else @artists = Artist.all
+    end
   end
 
   def show
@@ -10,6 +12,7 @@ class ArtistsController < ApplicationController
   end
 
   def new
+    if @pref.nil? 
     if Preference.last.allow_create_artists then @artist = Artist.new
     else redirect_to artists_path
     end
