@@ -1,4 +1,6 @@
 class ArtistsController < ApplicationController
+  before_action :set_pref, only: [:index, :new]
+  
   def index
     pref = Preference.last
     pref.nil? ? @artists = Artist.all : @artists = Artist.order("name #{pref.artist_sort_order}")
