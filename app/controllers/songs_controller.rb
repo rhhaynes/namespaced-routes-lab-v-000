@@ -12,7 +12,9 @@ class SongsController < ApplicationController
         end
       end
     else
-      @songs = Song.order("title #{Preference.last.song_sort_order}")
+      if @pref then @songs = Song.order("title #{@pref.song_sort_order}")
+      else @songs = Song.all
+      end
     end
   end
 
