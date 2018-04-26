@@ -50,6 +50,10 @@ class ArtistsController < ApplicationController
   end
 
   private
+  
+  def set_pref
+    @pref = Preference.last
+  end
 
   def artist_params
     params.require(:artist).permit(:name)
